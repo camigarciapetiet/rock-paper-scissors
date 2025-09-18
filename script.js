@@ -24,51 +24,40 @@ function getHumanChoice(){
 function playRound(humanChoice, computerChoice){
     if (humanChoice==computerChoice){
         console.log("It's a tie!");
-        return 2;
     } else if(humanChoice==0){
         if(computerChoice==1){
             console.log("You loose! Paper beats rock :(");
-            return 0;
+            computerScore++;
         }else if (computerChoice==2){
             console.log("You win! Rock beats scissors :)");
-            return 1;
+            humanScore++;
         }
     } else if(humanChoice==1){
         if(computerChoice==2){
             console.log("You loose! Scissors beats paper :(");
-            return 0;
+            computerScore++;
         }else if (computerChoice==0){
             console.log("You win! Paper beats rock :)");
-            return 1;
+            humanScore++;
         }
     } else if(humanChoice==2){
         if(computerChoice==0){
             console.log("You loose! Rock beats scissors :(");
-            return 0;
+            computerScore++;
         }else if (computerChoice==1){
             console.log("You win! Scissors beats paper :)");
-            return 1;
+            humanScore++;
         }
     }
 }
 
+let btnR= document.querySelector("#btn-r");
+let btnP= document.querySelector("#btn-p");
+let btnS= document.querySelector("#btn-s");
+
 let humanScore=0;
 let computerScore=0;
 
-for (let i=0; i<5; i++){
-    let human = getHumanChoice();
-    let computer= getComputerChoice();
-    let round = playRound(human, computer);
-    if (round==0){
-        computerScore++;
-    }else if(round==1){
-        humanScore++;
-    }
-}
-if(humanScore<computerScore){
-    console.log("You lost, your score is " + humanScore +" and the computer's is "+ computerScore);
-}else if(humanScore>computerScore){
-    console.log("You won! Your score is " + humanScore +" and the computer's is "+ computerScore);
-}else {
-    console.log("It's a tie! You both scored "+ humanScore);
-}
+btnR.addEventListener("click", () => playRound(0, getComputerChoice()));
+btnP.addEventListener("click", () => playRound(1, getComputerChoice()));
+btnS.addEventListener("click", () => playRound(2, getComputerChoice()));
