@@ -21,42 +21,63 @@ function getHumanChoice(){
     }
 }
 
+function incrementHumanScore(){
+    h++;
+    humanScore.textContent=h;
+}
+
+function incrementComputerScore(){
+    c++;
+    computerScore.textContent=c;
+}
+
+
 function playRound(humanChoice, computerChoice){
+    let p= document.createElement("p");
+    
     if (humanChoice==computerChoice){
-        console.log("It's a tie!");
+        p.textContent="It's a tie!";
     } else if(humanChoice==0){
         if(computerChoice==1){
-            console.log("You loose! Paper beats rock :(");
-            computerScore++;
+            p.textContent="You loose! Paper beats rock :(";
+            incrementComputerScore();
         }else if (computerChoice==2){
-            console.log("You win! Rock beats scissors :)");
-            humanScore++;
+            p.textContent="You win! Rock beats scissors :)";
+            incrementHumanScore();
         }
     } else if(humanChoice==1){
         if(computerChoice==2){
-            console.log("You loose! Scissors beats paper :(");
-            computerScore++;
+            p.textContent="You loose! Scissors beats paper :(";
+            incrementComputerScore();
         }else if (computerChoice==0){
-            console.log("You win! Paper beats rock :)");
-            humanScore++;
+            p.textContent="You win! Paper beats rock :)";
+            incrementHumanScore();
         }
     } else if(humanChoice==2){
         if(computerChoice==0){
-            console.log("You loose! Rock beats scissors :(");
-            computerScore++;
+            p.textContent="You loose! Rock beats scissors :(";
+            incrementComputerScore();
         }else if (computerChoice==1){
-            console.log("You win! Scissors beats paper :)");
-            humanScore++;
+            p.textContent="You win! Scissors beats paper :)";
+            incrementHumanScore();
         }
     }
+
+    results.appendChild(p);
 }
+
+
 
 let btnR= document.querySelector("#btn-r");
 let btnP= document.querySelector("#btn-p");
 let btnS= document.querySelector("#btn-s");
 
-let humanScore=0;
-let computerScore=0;
+let humanScore=document.querySelector("#you-score");
+let computerScore=document.querySelector("#computer-score");
+let h=0;
+let c=0;
+
+let results= document.querySelector("#results");
 
 btnR.addEventListener("click", () => playRound(0, getComputerChoice()));
 btnP.addEventListener("click", () => playRound(1, getComputerChoice()));
