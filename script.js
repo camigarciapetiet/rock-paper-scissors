@@ -9,18 +9,6 @@ function getComputerChoice(){
     };
 }
 
-function getHumanChoice(){
-    let choice= prompt("What's your choice? Rock, paper or scissors?");
-    choice.toLowerCase();
-    if (choice=="rock"){
-        return 0;
-    }else if(choice=="paper"){
-        return 1;
-    }else {
-        return 2;
-    }
-}
-
 function incrementHumanScore(){
     h++;
     humanScore.textContent=h;
@@ -31,6 +19,19 @@ function incrementComputerScore(){
     computerScore.textContent=c;
 }
 
+function showEndScreen(message){
+    modalTitle.textContent=message;
+    overlay.style.display="flex";
+}
+
+function checkWinner(){
+    if(h>=5){
+        showEndScreen("You won!");
+    }else if(c>=5){
+        showEndScreen("You lost");
+    }
+    
+}
 
 function playRound(humanChoice, computerChoice){
     let p= document.createElement("p");
@@ -64,8 +65,21 @@ function playRound(humanChoice, computerChoice){
     }
 
     results.appendChild(p);
+    checkWinner();
 }
 
+function updateScoresOnScreen(){
+    humanScore.textContent=0;
+    computerScore.textContent=0;
+}
+
+function restartGame(){
+    h=0;
+    c=0;
+    overlay.style.display="none";
+    updateScoresOnScreen();
+    results.innerHTML='';
+}
 
 
 let btnR= document.querySelector("#btn-r");
@@ -78,7 +92,11 @@ let h=0;
 let c=0;
 
 let results= document.querySelector("#results");
+let overlay=document.querySelector("#overlay");
+let modalTitle=document.querySelector("#modal-title");
+let btnRestart= document.querySelector("#btn-restart");
 
 btnR.addEventListener("click", () => playRound(0, getComputerChoice()));
 btnP.addEventListener("click", () => playRound(1, getComputerChoice()));
 btnS.addEventListener("click", () => playRound(2, getComputerChoice()));
+btnRestart.addEventListener("click", ()=> restartGame());
